@@ -1,0 +1,35 @@
+2021-02-26 03:03:30.662 +01:00 [INF] HTTP GET /OpenAPI/index.html responded 404 in 894.9164 ms
+2021-02-26 03:03:58.066 +01:00 [INF] HTTP GET /swagger responded 301 in 56.8118 ms
+2021-02-26 03:03:58.253 +01:00 [INF] HTTP GET /swagger/index.html responded 200 in 118.9492 ms
+2021-02-26 03:03:59.396 +01:00 [INF] HTTP GET /swagger/swagger-ui.css responded 200 in 393.4011 ms
+2021-02-26 03:03:59.430 +01:00 [INF] HTTP GET /swagger/swagger-ui-standalone-preset.js responded 200 in 70.0235 ms
+2021-02-26 03:03:59.448 +01:00 [INF] HTTP GET /swagger/swagger-ui-bundle.js responded 200 in 261.1323 ms
+2021-02-26 03:04:00.562 +01:00 [INF] HTTP GET /swagger/favicon-32x32.png responded 200 in 10.3717 ms
+2021-02-26 03:04:01.712 +01:00 [INF] HTTP GET /swagger/1.0/swagger.json responded 200 in 1415.3439 ms
+2021-02-26 03:04:23.892 +01:00 [INF] Route matched with {action = "Authenticate", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AuthenticateAsync(LangAppApi.Domain.Auth.AuthenticationRequest) on controller LangAppApi.Controllers.V1.AccountController (LangAppApi).
+2021-02-26 03:04:28.471 +01:00 [INF] Entity Framework Core 3.1.8 initialized 'IdentityContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: MigrationsAssembly=LangAppApi.Persistence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null 
+2021-02-26 03:04:29.938 +01:00 [INF] Executed DbCommand (154ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`SecurityStamp`, `u`.`TwoFactorEnabled`, `u`.`UserName`
+FROM `Identity_User` AS `u`
+WHERE `u`.`NormalizedEmail` = @__normalizedEmail_0
+LIMIT 2
+2021-02-26 03:04:30.321 +01:00 [INF] Executed action LangAppApi.Controllers.V1.AccountController.AuthenticateAsync (LangAppApi) in 6395.7986ms
+2021-02-26 03:04:30.339 +01:00 [ERR] HTTP POST /api/v1.0/accounts/authenticate responded 500 in 6623.8322 ms
+LangAppApi.Domain.Exceptions.BadRequestException: No Accounts Registered with kingkemsty@gmail.com.
+   at LangAppApi.Service.Implementation.AccountService.AuthenticateAsync(AuthenticationRequest request) in C:\Users\kemsty\source\repos\LangAppApi\LangAppApi\LangAppApi.Service\Implementation\AccountService.cs:line 57
+   at LangAppApi.Controllers.V1.AccountController.AuthenticateAsync(AuthenticationRequest request) in C:\Users\kemsty\source\repos\LangAppApi\LangAppApi\LangAppApi\Controllers\V1\AccountController.cs:line 36
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
