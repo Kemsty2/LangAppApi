@@ -7,6 +7,12 @@ namespace LangAppApi.Infrastructure.Utilities
 {
     public static class Utility
     {
+        /// <summary>
+        /// Check if an endpoint contains some keys
+        /// </summary>
+        /// <param name="ctx">the httpContext</param>
+        /// <param name="name">the key to check</param>
+        /// <returns>True or False</returns>
         private static bool CheckEndpoint(HttpContext ctx, string name = "Health checks")
         {
             var endpoint = ctx.GetEndpoint();
@@ -21,6 +27,13 @@ namespace LangAppApi.Infrastructure.Utilities
             return false;
         }
 
+        /// <summary>
+        /// Exclude HealthCheck From Request Logging
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="_"></param>
+        /// <param name="ex"></param>
+        /// <returns></returns>
         public static LogEventLevel ExcludeHealthChecks(HttpContext ctx, double _, Exception ex) =>
             ex != null
                 ? LogEventLevel.Error
@@ -30,6 +43,11 @@ namespace LangAppApi.Infrastructure.Utilities
                         ? LogEventLevel.Verbose // Was a health check, use Verbose
                         : LogEventLevel.Information;
 
+        /// <summary>
+        /// Enrich Request Logging
+        /// </summary>
+        /// <param name="diagnosticContext"></param>
+        /// <param name="httpContext"></param>
         public static void EnrichFromRequest(
             IDiagnosticContext diagnosticContext, HttpContext httpContext)
         {

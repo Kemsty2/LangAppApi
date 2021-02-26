@@ -6,7 +6,7 @@ namespace LangAppApi.Persistence
 {
     public interface IApplicationDbContext
     {
-        DbSet<Customer> Customers { get; set; }
+        DbSet<LangUser> LangUsers { get; set; }
 
         Task<int> SaveChangesAsync();
     }

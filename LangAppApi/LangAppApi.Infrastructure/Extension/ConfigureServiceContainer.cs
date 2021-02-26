@@ -44,7 +44,7 @@ namespace LangAppApi.Infrastructure.Extension
         {
             var mappingConfig = new MapperConfiguration(mc =>
             {
-                mc.AddProfile(new CustomerProfile());
+                mc.AddProfile(new LangProfile());
             });
             var mapper = mappingConfig.CreateMapper();
             serviceCollection.AddSingleton(mapper);
@@ -116,7 +116,7 @@ namespace LangAppApi.Infrastructure.Extension
                     },
                 });
 
-                var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlCommentsFile = $"LangAppApi.xml";
                 var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
                 setupAction.IncludeXmlComments(xmlCommentsFullPath);
             });

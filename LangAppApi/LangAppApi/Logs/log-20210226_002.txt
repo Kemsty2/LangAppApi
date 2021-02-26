@@ -1,0 +1,12 @@
+2021-02-26 18:02:04.553 +01:00 [INF] HTTP GET /swagger/index.html responded 200 in 2613.1219 ms
+2021-02-26 18:02:10.358 +01:00 [INF] HTTP GET /swagger/1.0/swagger.json responded 200 in 2913.3453 ms
+2021-02-26 18:05:47.989 +01:00 [INF] User profile is available. Using 'C:\Users\wdtn4590\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-02-26 18:05:49.352 +01:00 [INF] Now listening on: https://localhost:5001
+2021-02-26 18:05:49.360 +01:00 [INF] Now listening on: http://localhost:5000
+2021-02-26 18:05:49.362 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2021-02-26 18:05:49.365 +01:00 [INF] Hosting environment: Development
+2021-02-26 18:05:49.368 +01:00 [INF] Content root path: C:\Users\wdtn4590\source\repos\LangAppApi\LangAppApi\LangAppApi
+2021-02-26 18:05:52.933 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/index.html  
+2021-02-26 18:05:55.035 +01:00 [INF] Request finished in 2113.2262ms 200 text/html;charset=utf-8
+2021-02-26 18:05:56.571 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/1.0/swagger.json  
+2021-02-26 18:05:58.295 +01:00 [INF] Request finished in 1725.3011ms 200 application/json;charset=utf-8

@@ -16,7 +16,7 @@ namespace LangAppApi.Persistence
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<LangUser> LangUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

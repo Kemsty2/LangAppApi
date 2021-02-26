@@ -1,8 +1,6 @@
 ﻿using LangAppApi.Infrastructure.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.Extensions.Logging;
-using Serilog;
 
 namespace LangAppApi.Infrastructure.Extension
 {
@@ -24,11 +22,6 @@ namespace LangAppApi.Infrastructure.Extension
                     setupAction.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
                 }
             });
-        }
-
-        public static void ConfigureSwagger(this ILoggerFactory loggerFactory)
-        {
-            loggerFactory.AddSerilog();
         }
     }
 }

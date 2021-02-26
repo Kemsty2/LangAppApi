@@ -1,0 +1,203 @@
+2021-02-26 18:24:49.323 +01:00 [INF] HTTP GET /swagger/index.html responded 200 in 660.9120 ms
+2021-02-26 18:24:56.347 +01:00 [INF] HTTP GET /swagger/1.0/swagger.json responded 200 in 4361.6823 ms
+2021-02-26 18:29:05.969 +01:00 [INF] Route matched with {action = "Register", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] RegisterAsync(LangAppApi.Domain.Auth.RegisterRequest) on controller LangAppApi.Controllers.V1.AccountController (LangAppApi).
+2021-02-26 18:29:12.256 +01:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2021-02-26 18:29:12.430 +01:00 [INF] Executed action LangAppApi.Controllers.V1.AccountController.RegisterAsync (LangAppApi) in 6383.0615ms
+2021-02-26 18:29:12.440 +01:00 [INF] HTTP POST /api/v1.0/accounts/register responded 400 in 7039.9981 ms
+2021-02-26 18:29:27.645 +01:00 [INF] Route matched with {action = "Register", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] RegisterAsync(LangAppApi.Domain.Auth.RegisterRequest) on controller LangAppApi.Controllers.V1.AccountController (LangAppApi).
+2021-02-26 18:29:31.377 +01:00 [INF] Entity Framework Core 3.1.8 initialized 'IdentityContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: MigrationsAssembly=LangAppApi.Persistence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null 
+2021-02-26 18:29:33.406 +01:00 [INF] Executed DbCommand (150ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`SecurityStamp`, `u`.`TwoFactorEnabled`, `u`.`UserName`
+FROM `Identity_User` AS `u`
+WHERE `u`.`NormalizedUserName` = @__normalizedUserName_0
+LIMIT 1
+2021-02-26 18:29:33.543 +01:00 [INF] Executed DbCommand (10ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`SecurityStamp`, `u`.`TwoFactorEnabled`, `u`.`UserName`
+FROM `Identity_User` AS `u`
+WHERE `u`.`NormalizedEmail` = @__normalizedEmail_0
+LIMIT 2
+2021-02-26 18:29:33.570 +01:00 [WRN] User efc1e480-bb00-466d-bc36-a76461bf88b0 password validation failed: PasswordRequiresNonAlphanumeric;PasswordRequiresLower;PasswordRequiresUpper.
+2021-02-26 18:29:34.095 +01:00 [INF] Executed action LangAppApi.Controllers.V1.AccountController.RegisterAsync (LangAppApi) in 6431.2546ms
+2021-02-26 18:29:34.137 +01:00 [ERR] HTTP POST /api/v1.0/accounts/register responded 500 in 6513.8664 ms
+LangAppApi.Domain.Exceptions.BadRequestException: Passwords must have at least one non alphanumeric character.
+   at LangAppApi.Service.Implementation.AccountService.RegisterAsync(RegisterRequest request) in C:\Users\wdtn4590\source\repos\LangAppApi\LangAppApi\LangAppApi.Service\Implementation\AccountService.cs:line 111
+   at LangAppApi.Controllers.V1.AccountController.RegisterAsync(RegisterRequest request) in C:\Users\wdtn4590\source\repos\LangAppApi\LangAppApi\LangAppApi\Controllers\V1\AccountController.cs:line 59
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2021-02-26 18:29:51.574 +01:00 [INF] Route matched with {action = "Register", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] RegisterAsync(LangAppApi.Domain.Auth.RegisterRequest) on controller LangAppApi.Controllers.V1.AccountController (LangAppApi).
+2021-02-26 18:29:51.740 +01:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2021-02-26 18:29:51.757 +01:00 [INF] Executed action LangAppApi.Controllers.V1.AccountController.RegisterAsync (LangAppApi) in 167.1122ms
+2021-02-26 18:29:52.056 +01:00 [INF] HTTP POST /api/v1.0/accounts/register responded 400 in 491.0595 ms
+2021-02-26 18:30:00.392 +01:00 [INF] Route matched with {action = "Register", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] RegisterAsync(LangAppApi.Domain.Auth.RegisterRequest) on controller LangAppApi.Controllers.V1.AccountController (LangAppApi).
+2021-02-26 18:30:00.536 +01:00 [INF] Entity Framework Core 3.1.8 initialized 'IdentityContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: MigrationsAssembly=LangAppApi.Persistence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null 
+2021-02-26 18:30:00.606 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`SecurityStamp`, `u`.`TwoFactorEnabled`, `u`.`UserName`
+FROM `Identity_User` AS `u`
+WHERE `u`.`NormalizedUserName` = @__normalizedUserName_0
+LIMIT 1
+2021-02-26 18:30:00.644 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`SecurityStamp`, `u`.`TwoFactorEnabled`, `u`.`UserName`
+FROM `Identity_User` AS `u`
+WHERE `u`.`NormalizedEmail` = @__normalizedEmail_0
+LIMIT 2
+2021-02-26 18:30:00.949 +01:00 [INF] Executed DbCommand (9ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`SecurityStamp`, `u`.`TwoFactorEnabled`, `u`.`UserName`
+FROM `Identity_User` AS `u`
+WHERE `u`.`NormalizedUserName` = @__normalizedUserName_0
+LIMIT 1
+2021-02-26 18:30:01.668 +01:00 [INF] Executed DbCommand (115ms) [Parameters=[@p0='?' (Size = 255), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (Size = 256), @p4='?' (DbType = Boolean), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (DbType = Boolean), @p8='?' (DbType = DateTimeOffset), @p9='?' (Size = 256), @p10='?' (Size = 256), @p11='?' (Size = 4000), @p12='?' (Size = 4000), @p13='?' (DbType = Boolean), @p14='?' (Size = 4000), @p15='?' (DbType = Boolean), @p16='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `Identity_User` (`Id`, `AccessFailedCount`, `ConcurrencyStamp`, `Email`, `EmailConfirmed`, `FirstName`, `LastName`, `LockoutEnabled`, `LockoutEnd`, `NormalizedEmail`, `NormalizedUserName`, `PasswordHash`, `PhoneNumber`, `PhoneNumberConfirmed`, `SecurityStamp`, `TwoFactorEnabled`, `UserName`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16);
+2021-02-26 18:30:01.853 +01:00 [INF] Executed DbCommand (31ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Identity_Role` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedRoleName_0
+LIMIT 2
+2021-02-26 18:30:01.987 +01:00 [INF] Executed DbCommand (33ms) [Parameters=[@__p_0='?' (Size = 255), @__p_1='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT `u`.`UserId`, `u`.`RoleId`
+FROM `Identity_UserRoles` AS `u`
+WHERE (`u`.`UserId` = @__p_0) AND (`u`.`RoleId` = @__p_1)
+LIMIT 1
+2021-02-26 18:30:02.072 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Identity_Role` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedRoleName_0
+LIMIT 2
+2021-02-26 18:30:02.200 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`SecurityStamp`, `u`.`TwoFactorEnabled`, `u`.`UserName`
+FROM `Identity_User` AS `u`
+WHERE `u`.`NormalizedUserName` = @__normalizedUserName_0
+LIMIT 1
+2021-02-26 18:30:02.395 +01:00 [INF] Executed DbCommand (58ms) [Parameters=[@p16='?' (Size = 255), @p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p17='?' (Size = 4000), @p2='?' (Size = 256), @p3='?' (DbType = Boolean), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTimeOffset), @p8='?' (Size = 256), @p9='?' (Size = 256), @p10='?' (Size = 4000), @p11='?' (Size = 4000), @p12='?' (DbType = Boolean), @p13='?' (Size = 4000), @p14='?' (DbType = Boolean), @p15='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+UPDATE `Identity_User` SET `AccessFailedCount` = @p0, `ConcurrencyStamp` = @p1, `Email` = @p2, `EmailConfirmed` = @p3, `FirstName` = @p4, `LastName` = @p5, `LockoutEnabled` = @p6, `LockoutEnd` = @p7, `NormalizedEmail` = @p8, `NormalizedUserName` = @p9, `PasswordHash` = @p10, `PhoneNumber` = @p11, `PhoneNumberConfirmed` = @p12, `SecurityStamp` = @p13, `TwoFactorEnabled` = @p14, `UserName` = @p15
+WHERE `Id` = @p16 AND `ConcurrencyStamp` = @p17;
+SELECT ROW_COUNT();
+2021-02-26 18:30:02.492 +01:00 [INF] Executed DbCommand (13ms) [Parameters=[@p0='?' (Size = 255), @p1='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `Identity_UserRoles` (`UserId`, `RoleId`)
+VALUES (@p0, @p1);
+2021-02-26 18:30:02.529 +01:00 [INF] Executing ObjectResult, writing value of type 'LangAppApi.Domain.Common.Response`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2021-02-26 18:30:02.539 +01:00 [INF] Executed action LangAppApi.Controllers.V1.AccountController.RegisterAsync (LangAppApi) in 2136.3059ms
+2021-02-26 18:30:02.553 +01:00 [INF] HTTP POST /api/v1.0/accounts/register responded 200 in 2171.7718 ms
+2021-02-26 18:30:36.236 +01:00 [INF] Route matched with {action = "Authenticate", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AuthenticateAsync(LangAppApi.Domain.Auth.AuthenticationRequest) on controller LangAppApi.Controllers.V1.AccountController (LangAppApi).
+2021-02-26 18:30:36.390 +01:00 [INF] Entity Framework Core 3.1.8 initialized 'IdentityContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: MigrationsAssembly=LangAppApi.Persistence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null 
+2021-02-26 18:30:36.467 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`SecurityStamp`, `u`.`TwoFactorEnabled`, `u`.`UserName`
+FROM `Identity_User` AS `u`
+WHERE `u`.`NormalizedEmail` = @__normalizedEmail_0
+LIMIT 2
+2021-02-26 18:30:36.772 +01:00 [INF] Executed DbCommand (14ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`SecurityStamp`, `u`.`TwoFactorEnabled`, `u`.`UserName`
+FROM `Identity_User` AS `u`
+WHERE `u`.`NormalizedUserName` = @__normalizedUserName_0
+LIMIT 1
+2021-02-26 18:30:37.370 +01:00 [INF] Executed DbCommand (146ms) [Parameters=[@__user_Id_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`ClaimType`, `u`.`ClaimValue`, `u`.`UserId`
+FROM `Identity_UserClaims` AS `u`
+WHERE `u`.`UserId` = @__user_Id_0
+2021-02-26 18:30:37.592 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT `r`.`Name`
+FROM `Identity_UserRoles` AS `u`
+INNER JOIN `Identity_Role` AS `r` ON `u`.`RoleId` = `r`.`Id`
+WHERE `u`.`UserId` = @__userId_0
+2021-02-26 18:30:37.709 +01:00 [INF] Executed DbCommand (49ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Identity_Role` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+2021-02-26 18:30:37.863 +01:00 [INF] Executed DbCommand (25ms) [Parameters=[@__role_Id_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `Identity_RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+2021-02-26 18:30:38.011 +01:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2021-02-26 18:30:38.069 +01:00 [INF] Executed DbCommand (27ms) [Parameters=[@__user_Id_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`ClaimType`, `u`.`ClaimValue`, `u`.`UserId`
+FROM `Identity_UserClaims` AS `u`
+WHERE `u`.`UserId` = @__user_Id_0
+2021-02-26 18:30:38.123 +01:00 [INF] Executed DbCommand (18ms) [Parameters=[@__userId_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT `r`.`Name`
+FROM `Identity_UserRoles` AS `u`
+INNER JOIN `Identity_Role` AS `r` ON `u`.`RoleId` = `r`.`Id`
+WHERE `u`.`UserId` = @__userId_0
+2021-02-26 18:30:38.740 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT `r`.`Name`
+FROM `Identity_UserRoles` AS `u`
+INNER JOIN `Identity_Role` AS `r` ON `u`.`RoleId` = `r`.`Id`
+WHERE `u`.`UserId` = @__userId_0
+2021-02-26 18:30:38.771 +01:00 [INF] Executing ObjectResult, writing value of type 'LangAppApi.Domain.Common.Response`1[[LangAppApi.Domain.Auth.AuthenticationResponse, LangAppApi.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2021-02-26 18:30:38.801 +01:00 [INF] Executed action LangAppApi.Controllers.V1.AccountController.AuthenticateAsync (LangAppApi) in 2488.5871ms
+2021-02-26 18:30:38.824 +01:00 [INF] HTTP POST /api/v1.0/accounts/authenticate responded 200 in 2682.9907 ms
+2021-02-26 18:31:02.419 +01:00 [INF] Successfully validated the token.
+2021-02-26 18:31:02.467 +01:00 [INF] Authorization was successful.
+2021-02-26 18:31:02.521 +01:00 [INF] Route matched with {action = "GetAll", controller = "LangUsers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller LangAppApi.Controllers.V1.LangUsersController (LangAppApi).
+2021-02-26 18:31:02.753 +01:00 [INF] Entity Framework Core 3.1.8 initialized 'ApplicationDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: DetailedErrorsEnabled MigrationsAssembly=LangAppApi.Persistence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null 
+2021-02-26 18:31:03.202 +01:00 [INF] Executed DbCommand (215ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `l`.`Id`, `l`.`ComprehensionLevel`, `l`.`CreatedAt`, `l`.`CreatedBy`, `l`.`IsDeleted`, `l`.`Language`, `l`.`SpeakLevel`, `l`.`UpdatedAt`, `l`.`UpdatedBy`, `l`.`UserGuid`, `l`.`WriteLevel`
+FROM `LangUsers` AS `l`
+2021-02-26 18:31:03.266 +01:00 [INF] Executing ObjectResult, writing value of type 'LangAppApi.Domain.Common.Response`1[[System.Collections.Generic.IEnumerable`1[[LangAppApi.Domain.Entities.LangUser, LangAppApi.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2021-02-26 18:31:03.284 +01:00 [INF] Executed action LangAppApi.Controllers.V1.LangUsersController.GetAll (LangAppApi) in 747.2013ms
+2021-02-26 18:31:03.305 +01:00 [INF] HTTP GET /api/v1.0/langusers responded 200 in 1203.4728 ms
+2021-02-26 18:31:27.313 +01:00 [INF] Successfully validated the token.
+2021-02-26 18:31:27.337 +01:00 [INF] Authorization was successful.
+2021-02-26 18:31:27.407 +01:00 [INF] Route matched with {action = "Create", controller = "LangUsers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(LangAppApi.Service.Features.LangFeatures.Commands.CreateLangCommand) on controller LangAppApi.Controllers.V1.LangUsersController (LangAppApi).
+2021-02-26 18:31:27.465 +01:00 [INF] Entity Framework Core 3.1.8 initialized 'ApplicationDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: DetailedErrorsEnabled MigrationsAssembly=LangAppApi.Persistence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null 
+2021-02-26 18:31:28.087 +01:00 [INF] Executed action LangAppApi.Controllers.V1.LangUsersController.Create (LangAppApi) in 657.7812ms
+2021-02-26 18:31:28.098 +01:00 [ERR] HTTP POST /api/v1.0/langusers responded 500 in 789.9719 ms
+System.MissingMethodException: Method not found: '!!0 AutoMapper.IMapper.Map(System.Object)'.
+   at LangAppApi.Service.Features.LangFeatures.Commands.CreateLangCommand.CreateLangCommandHandler.Handle(CreateLangCommand request, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at LangAppApi.Service.Features.LangFeatures.Commands.CreateLangCommand.CreateLangCommandHandler.Handle(CreateLangCommand request, CancellationToken cancellationToken)
+   at MediatR.Internal.RequestHandlerWrapperImpl`2.<>c__DisplayClass1_0.<Handle>g__Handler|0()
+   at MediatR.Pipeline.RequestExceptionProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestExceptionProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestExceptionActionProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestExceptionActionProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestPostProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestPreProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at LangAppApi.Controllers.V1.LangUsersController.Create(CreateLangCommand command) in C:\Users\wdtn4590\source\repos\LangAppApi\LangAppApi\LangAppApi\Controllers\V1\LangUsersController.cs:line 58
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2021-02-26 18:46:44.369 +01:00 [INF] User profile is available. Using 'C:\Users\wdtn4590\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-02-26 18:46:46.163 +01:00 [INF] Now listening on: https://localhost:5001
+2021-02-26 18:46:46.168 +01:00 [INF] Now listening on: http://localhost:5000
+2021-02-26 18:46:46.171 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2021-02-26 18:46:46.174 +01:00 [INF] Hosting environment: Development
+2021-02-26 18:46:46.177 +01:00 [INF] Content root path: C:\Users\wdtn4590\source\repos\LangAppApi\LangAppApi\LangAppApi
+2021-02-26 18:46:55.677 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/index.html  
+2021-02-26 18:46:59.359 +01:00 [INF] Request finished in 3710.1101ms 200 text/html;charset=utf-8
+2021-02-26 18:47:25.133 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/1.0/swagger.json  
+2021-02-26 18:47:26.413 +01:00 [INF] Request finished in 1287.9618ms 200 application/json;charset=utf-8
+2021-02-26 18:48:34.311 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5001/api/v1.0/langusers  
+2021-02-26 18:48:36.519 +01:00 [INF] Executing endpoint 'LangAppApi.Controllers.V1.LangUsersController.GetAll (LangAppApi)'
+2021-02-26 18:48:49.534 +01:00 [INF] Executed endpoint 'LangAppApi.Controllers.V1.LangUsersController.GetAll (LangAppApi)'
+2021-02-26 18:48:49.572 +01:00 [INF] Request finished in 15262.3864ms 200 application/json; charset=utf-8
+2021-02-26 18:49:25.265 +01:00 [INF] Request starting HTTP/2 POST https://localhost:5001/api/v1.0/langusers multipart/form-data; boundary=----WebKitFormBoundaryODqMbjUy6aYWHPHt 476
+2021-02-26 18:49:28.101 +01:00 [INF] CORS policy execution failed.
+2021-02-26 18:49:28.103 +01:00 [INF] Request origin https://localhost:5001 does not have permission to access the resource.
+2021-02-26 18:49:29.972 +01:00 [INF] Executing endpoint 'LangAppApi.Controllers.V1.LangUsersController.Create (LangAppApi)'
+2021-02-26 18:49:34.099 +01:00 [INF] Executed endpoint 'LangAppApi.Controllers.V1.LangUsersController.Create (LangAppApi)'
+2021-02-26 18:49:34.114 +01:00 [INF] Request finished in 8852.2825ms 201 application/json; charset=utf-8
