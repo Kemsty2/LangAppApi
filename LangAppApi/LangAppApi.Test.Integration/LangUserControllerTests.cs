@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using LangAppApi.Domain.Common;
-using LangAppApi.Domain.Entities;
 using LangAppApi.Domain.Enum;
 using LangAppApi.Infrastructure.ViewModel;
 using LangAppApi.Service.Features.LangFeatures.Commands;
