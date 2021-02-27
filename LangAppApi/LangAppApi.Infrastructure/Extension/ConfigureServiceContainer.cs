@@ -133,7 +133,8 @@ namespace LangAppApi.Infrastructure.Extension
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 
                 options.SerializerSettings.Converters.Add(new StringEnumConverter());
-            });
+
+            }).AddDataAnnotationsLocalization();
         }
 
         public static void AddVersion(this IServiceCollection serviceCollection)
@@ -159,6 +160,11 @@ namespace LangAppApi.Infrastructure.Extension
                 var factory = x.GetRequiredService<IUrlHelperFactory>();
                 return factory.GetUrlHelper(actionContext);
             });
+        }
+
+        public static void AddLocalizationService(this IServiceCollection services)
+        {
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
         }
     }
 }

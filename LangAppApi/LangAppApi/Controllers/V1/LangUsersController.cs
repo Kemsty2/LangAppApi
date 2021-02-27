@@ -1,4 +1,5 @@
-﻿using LangAppApi.ControllerUtilities;
+﻿using AutoMapper;
+using LangAppApi.ControllerUtilities;
 using LangAppApi.Domain.Common;
 using LangAppApi.Domain.Queries;
 using LangAppApi.Infrastructure.ViewModel;
@@ -25,6 +26,12 @@ namespace LangAppApi.Controllers.V1
     {
         private IMediator _mediator;
         private IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
+        private readonly IMapper _mapper;
+
+        public LangUsersController(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
 
         // GET: api/langusers
         /// <summary>
@@ -32,8 +39,8 @@ namespace LangAppApi.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpGet, MapToApiVersion("1.0")]
-        [ProducesResponseType(typeof(Response<IEnumerable<LangUser>>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(OutPutModel<LangUser>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<IEnumerable<LangViewModel>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(OutPutModel<LangViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAll([FromQuery] LangQuery query)
@@ -41,7 +48,7 @@ namespace LangAppApi.Controllers.V1
             if (query == null || !query.IsPaged)
             {
                 var result = await Mediator.Send(new GetAllLangQuery());
-                return Ok(new Response<IEnumerable<LangUser>>(result));
+                return Ok(new Response<IEnumerable<LangViewModel>>(_mapper.Map<IEnumerable<LangUser>, IEnumerable<LangViewModel>>(result)));
             }
 
             if (!query.IsValid())
@@ -50,7 +57,7 @@ namespace LangAppApi.Controllers.V1
             }
 
             var items = new PagedList<LangUser>(await Mediator.Send(new GetPagingLangUsersQuery { Query = query }));
-            return Ok(new OutPutModel<LangUser>(items.GetHeader(), items.List));
+            return Ok(new OutPutModel<LangViewModel>(items.GetHeader(), _mapper.Map<List<LangUser>, List<LangViewModel>>(items.List)));
         }
 
         /// <summary>
@@ -59,7 +66,7 @@ namespace LangAppApi.Controllers.V1
         /// <param name="command">The Command to create User Language</param>
         /// <returns></returns>
         [HttpPost, MapToApiVersion("1.0")]
-        [ProducesResponseType(typeof(Response<LangUser>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(Response<LangViewModel>), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
@@ -71,7 +78,7 @@ namespace LangAppApi.Controllers.V1
             var result = await Mediator.Send(command);
 
             return Created(new Uri($"/api/v1/langusers/{result.Id}", UriKind.Relative),
-                new Response<LangUser>(result, $"The user lang with id : {result.Id} have been created"));
+                new Response<LangViewModel>(_mapper.Map<LangUser, LangViewModel>(result), $"The user lang with id : {result.Id} have been created"));
         }
 
         /// <summary>
@@ -80,14 +87,15 @@ namespace LangAppApi.Controllers.V1
         /// <param name="id">Identifier of the user lang</param>
         /// <returns></returns>
         [HttpGet("{id}"), MapToApiVersion("1.0")]
-        [ProducesResponseType(typeof(Response<LangUser>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<LangViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
         public async Task<IActionResult> GetById(Guid id)
         {
             var result = await Mediator.Send(new GetLangByIdQuery { Id = id });
-            return Ok(new Response<LangUser>(result));
+
+            return Ok(new Response<LangViewModel>(_mapper.Map<LangUser, LangViewModel>(result)));
         }
 
         /// <summary>
@@ -113,7 +121,7 @@ namespace LangAppApi.Controllers.V1
         /// <param name="command">The Update element</param>
         /// <returns></returns>
         [HttpPut("{id}"), MapToApiVersion("1.0")]
-        [ProducesResponseType(typeof(Response<LangUser>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<LangViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -124,7 +132,7 @@ namespace LangAppApi.Controllers.V1
 
             command.Id = id;
             var result = await Mediator.Send(command);
-            return Ok(new Response<LangUser>(result, $"The User Lang with id : {id} have been updated"));
+            return Ok(new Response<LangViewModel>(_mapper.Map<LangUser, LangViewModel>(result), $"The User Lang with id : {id} have been updated"));
         }
     }
 }

@@ -23,5 +23,15 @@ namespace LangAppApi.Infrastructure.Extension
                 }
             });
         }
+
+        public static void ConfigureLocalization(this IApplicationBuilder app)
+        {
+            var supportedCultures = new[] { "en", "fr", "nl" };
+            var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+                .AddSupportedCultures(supportedCultures)
+                .AddSupportedUICultures(supportedCultures);
+
+            app.UseRequestLocalization(localizationOptions);
+        }
     }
 }

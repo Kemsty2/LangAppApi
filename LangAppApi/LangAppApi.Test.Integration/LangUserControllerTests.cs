@@ -35,7 +35,8 @@ namespace LangAppApi.Test.Integration
             SetupClaimsViaHeaders();
             var queryString = new Dictionary<string, string>()
             {
-                {"IsPaged", "false"}
+                {"IsPaged", "false"},
+                {"culture", "fr"}
             };
             var requestUri = QueryHelpers.AddQueryString("/api/v1.0/langusers", queryString);
 
@@ -48,7 +49,7 @@ namespace LangAppApi.Test.Integration
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
 
-            var result = JsonConvert.DeserializeObject<Response<IEnumerable<LangUser>>>(content);
+            var result = JsonConvert.DeserializeObject<Response<IEnumerable<LangViewModel>>>(content);
 
             Assert.NotEmpty(result.Data);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -65,6 +66,7 @@ namespace LangAppApi.Test.Integration
                 {"IsPaged", "true"},
                 {"PageNumber", "1"},
                 {"PageSize", "10"},
+                {"culture", "fr"}
             };
             var requestUri = QueryHelpers.AddQueryString("/api/v1.0/langusers", queryString);
 
@@ -77,7 +79,7 @@ namespace LangAppApi.Test.Integration
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
 
-            var result = JsonConvert.DeserializeObject<OutPutModel<LangUser>>(content);
+            var result = JsonConvert.DeserializeObject<OutPutModel<LangViewModel>>(content);
             Assert.NotEmpty(result.Data);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
@@ -93,6 +95,7 @@ namespace LangAppApi.Test.Integration
                 {"IsPaged", "true"},
                 {"PageNumber", "0"},
                 {"PageSize", "10"},
+                {"culture", "fr"}
             };
             var requestUri = QueryHelpers.AddQueryString("/api/v1.0/langusers", queryString);
 
@@ -112,7 +115,7 @@ namespace LangAppApi.Test.Integration
             //  Arrange
             SetupClaimsViaHeaders();
             var expectedEntity = Utilities.GetSeedingLanguages().First();
-            var request = new HttpRequestMessage(HttpMethod.Get, $"/api/v1.0/langusers/{expectedEntity.Id}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"/api/v1.0/langusers/{expectedEntity.Id}?culture=fr");
 
             //  Act
             var response = await Client.SendAsync(request);
@@ -121,7 +124,7 @@ namespace LangAppApi.Test.Integration
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
 
-            var result = JsonConvert.DeserializeObject<Response<LangUser>>(content);
+            var result = JsonConvert.DeserializeObject<Response<LangViewModel>>(content);
 
             Assert.Equal(expectedEntity.Id, result.Data.Id);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -133,7 +136,7 @@ namespace LangAppApi.Test.Integration
         {
             //  Arrange
             SetupClaimsViaHeaders();
-            var request = new HttpRequestMessage(HttpMethod.Get, $"/api/v1.0/langusers/{new Guid()}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"/api/v1.0/langusers/{new Guid()}?culture=fr");
 
             //  Act
             var response = await Client.SendAsync(request);
@@ -157,7 +160,7 @@ namespace LangAppApi.Test.Integration
                 Language = Lang.French
             };
 
-            var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1.0/langusers")
+            var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1.0/langusers?culture=fr")
             {
                 Content = new StringContent(JsonConvert.SerializeObject(command), Encoding.UTF8,
                     "application/json")
@@ -168,27 +171,6 @@ namespace LangAppApi.Test.Integration
 
             //  Assert
             response.StatusCode.Should().Be(HttpStatusCode.Created);
-        }
-
-        [Trait("LangUsersController", "Scénario Alternatif de création d'une langue, command invalide")]
-        [Fact(DisplayName = "POST /api/v1/langusers 400 BadRequest")]
-        public async Task CantCreateLangBadRequest()
-        {
-            //  Arrange
-            SetupClaimsViaHeaders();
-            var command = new CreateLangCommand();
-
-            var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1.0/langusers")
-            {
-                Content = new StringContent(JsonConvert.SerializeObject(command), Encoding.UTF8,
-                    "application/json")
-            };
-
-            //  Act
-            var response = await Client.SendAsync(request);
-
-            //  Assert
-            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
         #endregion Post Endpoints
@@ -208,7 +190,7 @@ namespace LangAppApi.Test.Integration
                 Id = expectedEntity.Id
             };
 
-            var request = new HttpRequestMessage(HttpMethod.Put, $"/api/v1.0/langusers/{expectedEntity.Id}")
+            var request = new HttpRequestMessage(HttpMethod.Put, $"/api/v1.0/langusers/{expectedEntity.Id}?culture=fr")
             {
                 Content = new StringContent(JsonConvert.SerializeObject(command), Encoding.UTF8,
                     "application/json")
@@ -218,7 +200,7 @@ namespace LangAppApi.Test.Integration
             var response = await Client.SendAsync(request);
             var content = await response.Content.ReadAsStringAsync();
 
-            var result = JsonConvert.DeserializeObject<Response<LangUser>>(content);
+            var result = JsonConvert.DeserializeObject<Response<LangViewModel>>(content);
 
             //  Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -238,7 +220,7 @@ namespace LangAppApi.Test.Integration
                 Id = id
             };
 
-            var request = new HttpRequestMessage(HttpMethod.Put, $"/api/v1.0/langusers/{id}")
+            var request = new HttpRequestMessage(HttpMethod.Put, $"/api/v1.0/langusers/{id}?culture=fr")
             {
                 Content = new StringContent(JsonConvert.SerializeObject(command), Encoding.UTF8,
                     "application/json")
@@ -251,31 +233,6 @@ namespace LangAppApi.Test.Integration
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
-        [Trait("LangUsersController", "Scénario Alternatif de modification d'une langue, commande invalide")]
-        [Fact(DisplayName = "PUT /api/v1/langusers 400 BadRequest")]
-        public async Task CantUpdateLangBadRequest()
-        {
-            //  Arrange
-            SetupClaimsViaHeaders();
-            var expectedEntity = Utilities.GetSeedingLanguages().First();
-            var command = new UpdateLangCommand
-            {
-                Id = expectedEntity.Id
-            };
-
-            var request = new HttpRequestMessage(HttpMethod.Put, $"/api/v1.0/langusers/{expectedEntity.Id}")
-            {
-                Content = new StringContent(JsonConvert.SerializeObject(command), Encoding.UTF8,
-                    "application/json")
-            };
-
-            //  Act
-            var response = await Client.SendAsync(request);
-
-            //  Assert
-            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-        }
-
         #endregion Put Endpoints
 
         #region Delete Endpoints
@@ -286,9 +243,9 @@ namespace LangAppApi.Test.Integration
         {
             //  Arrange
             SetupClaimsViaHeaders();
-            var expectedEntity = Utilities.GetSeedingLanguages().First();
+            const string expectedId = "d451ca14-73d8-4bea-9501-d228be43005d";
 
-            var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/v1.0/langusers/{expectedEntity.Id}");
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/v1.0/langusers/{expectedId}?culture=fr");
 
             //  Act
             var response = await Client.SendAsync(request);
@@ -304,7 +261,7 @@ namespace LangAppApi.Test.Integration
             //  Arrange
             SetupClaimsViaHeaders();
 
-            var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/v1.0/langusers/{new Guid()}");
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/v1.0/langusers/{new Guid()}?culture=fr");
 
             //  Act
             var response = await Client.SendAsync(request);

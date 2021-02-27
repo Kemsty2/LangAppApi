@@ -5,6 +5,7 @@ using LangAppApi.Domain.Exceptions;
 using LangAppApi.Domain.Settings;
 using LangAppApi.Service.Contract;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -25,6 +26,7 @@ namespace LangAppApi.Service.Implementation
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly JwtSettings _jwtSettings;
+        private readonly IStringLocalizer<AccountService> _localizer;
 
         /// <summary>
         ///
@@ -32,13 +34,15 @@ namespace LangAppApi.Service.Implementation
         /// <param name="userManager"></param>
         /// <param name="jwtSettings"></param>
         /// <param name="signInManager"></param>
+        /// <param name="localizer"></param>
         public AccountService(UserManager<ApplicationUser> userManager,
             IOptions<JwtSettings> jwtSettings,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager, IStringLocalizer<AccountService> localizer)
         {
             _userManager = userManager;
             _jwtSettings = jwtSettings.Value;
             _signInManager = signInManager;
+            _localizer = localizer;
         }
 
         /// <summary>
@@ -51,13 +55,13 @@ namespace LangAppApi.Service.Implementation
             var user = await _userManager.FindByEmailAsync(request.Email);
             if (user == null)
             {
-                throw new BadRequestException($"No Accounts Registered with {request.Email}.");
+                throw new NotFoundException($"{_localizer["No Accounts Registered with"]} {request.Email}");
             }
 
             var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, false);
             if (!result.Succeeded)
             {
-                throw new BadRequestException($"Invalid Credentials for '{request.Email}'.");
+                throw new BadRequestException($"{_localizer["Invalid Credentials for"]} '{request.Email}'.");
             }
 
             var jwtSecurityToken = await GenerateJwToken(user);
@@ -77,7 +81,7 @@ namespace LangAppApi.Service.Implementation
             var refreshToken = GenerateRefreshToken();
             response.RefreshToken = refreshToken.Token;
 
-            return new Response<AuthenticationResponse>(response, $"Authenticated {user.UserName}");
+            return new Response<AuthenticationResponse>(response, $"{_localizer["Authenticated"]} {user.UserName}");
         }
 
         /// <summary>
@@ -90,7 +94,7 @@ namespace LangAppApi.Service.Implementation
             var userWithSameUserName = await _userManager.FindByNameAsync(request.UserName);
             if (userWithSameUserName != null)
             {
-                throw new BadRequestException($"Username '{request.UserName}' is already taken.");
+                throw new ConflictException($"{_localizer["Username"]} '{request.UserName}' {_localizer["is already taken"]}.");
             }
             var user = new ApplicationUser
             {
@@ -102,7 +106,7 @@ namespace LangAppApi.Service.Implementation
                 PhoneNumberConfirmed = true
             };
             var userWithSameEmail = await _userManager.FindByEmailAsync(request.Email);
-            if (userWithSameEmail != null) throw new BadRequestException($"Email {request.Email} is already registered.");
+            if (userWithSameEmail != null) throw new ConflictException($"{_localizer["Email"]} {request.Email} {_localizer["is already registered"]}.");
 
             var result = await _userManager.CreateAsync(user, request.Password);
 
@@ -110,7 +114,7 @@ namespace LangAppApi.Service.Implementation
 
             await _userManager.AddToRoleAsync(user, Roles.Basic.ToString());
 
-            return new Response<string>(user.Id, $"User {request.Email} Registered !. You can login on the app");
+            return new Response<string>(user.Id, _localizer["User {0} Registered !. You can login on the app", request.Email]);
         }
 
         #region Private Methods

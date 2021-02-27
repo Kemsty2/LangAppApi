@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using LangAppApi.Domain.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using LangAppApi.Domain.Exceptions;
 
 namespace LangAppApi.Infrastructure.Middleware
 {
@@ -61,6 +61,11 @@ namespace LangAppApi.Infrastructure.Middleware
                 case DeleteFailureException e:
                     _logger.LogError(e, e.Message);
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    break;
+
+                case ConflictException e:
+                    _logger.LogError(e, e.Message);
+                    response.StatusCode = (int)HttpStatusCode.Conflict;
                     break;
 
                 default:

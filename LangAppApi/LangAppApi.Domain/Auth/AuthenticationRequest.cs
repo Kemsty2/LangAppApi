@@ -4,11 +4,11 @@ namespace LangAppApi.Domain.Auth
 {
     public class AuthenticationRequest
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Email is not valid")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter your password")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }

@@ -25,7 +25,7 @@ namespace LangAppApi.Service.Features.LangFeatures.Queries
             public async Task<LangUser> Handle(GetLangByIdQuery request, CancellationToken cancellationToken)
             {
                 var lang = await _context.LangUsers.FirstOrDefaultAsync(x => x.Id == request.Id && !x.IsDeleted, cancellationToken);
-                if (lang == null) throw new NotFoundException("Request", request.Id);
+                if (lang == null) throw new NotFoundException("Lang", request.Id);
                 return lang;
             }
         }

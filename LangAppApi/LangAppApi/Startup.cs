@@ -28,6 +28,8 @@ namespace LangAppApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             services.AddController();
 
             services.AddContextService();
@@ -63,6 +65,12 @@ namespace LangAppApi
                  .AllowAnyHeader()
                  .AllowAnyMethod());
 
+            var supportedCultures = new[] { "en", "fr", "nl" };
+            var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+                .AddSupportedCultures(supportedCultures)
+                .AddSupportedUICultures(supportedCultures);
+
+            app.UseRequestLocalization(localizationOptions);
             app.ConfigureCustomExceptionMiddleware();
             app.ConfigureSerilogRequestLogging();
 
