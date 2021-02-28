@@ -10,7 +10,7 @@ namespace LangAppApi.Domain.Auth
         public string Email { get; set; }
         public List<string> Roles { get; set; }
         public bool IsVerified { get; set; }
-        public string JwToken { get; set; }
+        public string JwtToken { get; set; }
 
         [JsonIgnore]
         public string RefreshToken { get; set; }

@@ -68,7 +68,7 @@ namespace LangAppApi.Service.Implementation
             var response = new AuthenticationResponse
             {
                 Id = user.Id,
-                JwToken = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+                JwtToken = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
                 Email = user.Email,
                 UserName = user.UserName
             };
