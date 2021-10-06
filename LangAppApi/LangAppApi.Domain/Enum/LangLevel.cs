@@ -7,21 +7,21 @@ namespace LangAppApi.Domain.Enum
     public enum LangLevel
     {
         [LocalizedDescription("Starter", typeof(LangLevel))]
-        Starter,
+        Starter = 1,
 
         [LocalizedDescription("Basic", typeof(LangLevel))]
-        Basic,
+        Basic = 2,
 
         [LocalizedDescription("PreIntermediate", typeof(LangLevel))]
-        PreIntermediate,
+        PreIntermediate = 3,
 
         [LocalizedDescription("Intermediate", typeof(LangLevel))]
-        Intermediate,
+        Intermediate = 4,
 
         [LocalizedDescription("UpperIntermediate", typeof(LangLevel))]
-        UpperIntermediate,
+        UpperIntermediate = 5,
 
         [LocalizedDescription("Advanced", typeof(LangLevel))]
-        Advanced
+        Advanced = 6
     }
 }

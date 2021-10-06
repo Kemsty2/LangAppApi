@@ -13,8 +13,8 @@ namespace LangAppApi.Infrastructure.Mapping
         {
             CreateMap<CreateLangCommand, LangUser>().ReverseMap();
 
-            CreateMap<Lang, string>().ConvertUsing<LangTypeConverter>();
-            CreateMap<LangLevel, string>().ConvertUsing<LangLevelTypeConverter>();
+            CreateMap<Lang, int>().ConvertUsing<LangTypeConverter>();
+            CreateMap<LangLevel, int>().ConvertUsing<LangLevelTypeConverter>();
 
             CreateMap<LangUser, LangViewModel>();
         }

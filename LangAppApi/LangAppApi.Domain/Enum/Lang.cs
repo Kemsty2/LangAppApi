@@ -7,12 +7,12 @@ namespace LangAppApi.Domain.Enum
     public enum Lang
     {
         [LocalizedDescription("French", typeof(Lang))]
-        French,
+        French = 1,
 
         [LocalizedDescription("English", typeof(Lang))]
-        English,
+        English = 2,
 
         [LocalizedDescription("Dutch", typeof(Lang))]
-        Dutch
+        Dutch = 3
     }
 }

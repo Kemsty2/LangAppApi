@@ -4,12 +4,12 @@ using System.ComponentModel;
 
 namespace LangAppApi.Infrastructure.Mapping.Converters
 {
-    public class LangTypeConverter : ITypeConverter<Lang, string>
+    public class LangTypeConverter : ITypeConverter<Lang, int>
     {
-        public string Convert(Lang source, string destination, ResolutionContext context)
+        public int Convert(Lang source, int destination, ResolutionContext context)
         {
-            var converter = TypeDescriptor.GetConverter(typeof(Lang));
-            return converter.ConvertToString(source);
+            //var converter = TypeDescriptor.GetConverter(typeof(Lang));
+            return (int)source;
         }
     }
 }
